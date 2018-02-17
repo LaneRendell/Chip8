@@ -21,118 +21,47 @@
 #define CPU_CLEAR_SCREEN 0xE0
 #define CPU_RET 0xEE
 
-typedef void(*FunctionPointer) (void);
-
-void (*ChipOpCodes[46]) ();
-void (*ChipArith[9]) ();
-
-void cpu_MISC()
+typedef unsigned char byte;  // Byte of memory
+// A word is two bytes. Access it as a whole or individually
+typedef union
 {
-    if (chipReg.operand.BYTE.low == CPU_CLEAR_SCREEN)
-    {
-        
-    } else if (chipReg.operand.BYTE.low == CPU_RET) {
+    unsigned short WORD;
+    struct {
+        #ifdef WORDS_LITTLE_ENDIAN
 
-    } else {
-        // Invalid opcode.
-    }
-}
+        byte high, low;
 
-void cpu_JUMP()
+        #else
+
+        byte low, high;
+
+        #endif
+    } BYTE;
+} word;
+
+typedef struct
 {
-    
-}
+    byte v[0x10];  // Registers
+    word i;        // Index Register
+    word pc;       // Program Counter
+    word sp;       // Stack pointer
+    byte dt;       // Delay Timer
+    byte st;       // sound timer
+    word operand;  // The current operand
+} registerSet;
 
-void cpu_CALL()
+typedef struct
 {
-    
-}
-
-void cpu_SE_REGISTER_VALUE()
-{
-    
-}
-
-void cpu_SNE_REGISTER_VALUE()
-{
-}
-
-void cpu_SE_REGISTER()
-{
-    
-}
-
-void cpu_LOAD()
-{
-    
-}
-
-void cpu_ADD_REGISTER_VALUE()
-{
-    
-}
-
-void cpu_ARITHMETIC()
-{
-    // Do lookup in arithmetic function table
-    ChipArith[(chipReg.operand.WORD & 0x000F)] ();
-
-}
-
-void cpu_MOV_VY_VX()
-{
-    
-}
-
-// NOTE: ORs VX and VY
-// IMPORTANT: Result stored in VX.
-void cpu_OR_VX_VY()
-{
-    
-}
-
-void cpu_AND_VX_VY()
-{
-}
-
-void cpu_XOR_VX_VY()
-{
-}
-
-void cpu_ADD_VX_VY()
-{
-}
-
-void cpu_SUB_VX_VY()
-{
-    
-}
-
-void cpu_SHIFT_RIGHT_VX_VY()
-{
-    
-}
-
-void cpu_SUBN_VX_VY()
-{
-}
-
-void cpu_SHIFT_LEFT_VX_VY()
-{
-    
-}
-
-void (*ChipOpCodes[46]) () = 
-{
-    cpu_MISC, cpu_JUMP, cpu_CALL, cpu_SE_REGISTER_VALUE, cpu_SNE_REGISTER_VALUE,
-    cpu_SE_REGISTER, cpu_LOAD, cpu_ADD_REGISTER_VALUE, cpu_ARITHMETIC
-};
+    registerSet regs;
+    byte memory[4096];
+    byte gfx[64*32];
+    byte key[16];
+    word stack[16];
+} chip;
 
 
-void (*ChipArith[9]) () =
-{
-    cpu_MOV_VY_VX, cpu_OR_VX_VY, cpu_AND_VX_VY, cpu_XOR_VX_VY, cpu_ADD_VX_VY,
-    cpu_SUB_VX_VY, cpu_SHIFT_RIGHT_VX_VY, cpu_SUBN_VX_VY, cpu_SHIFT_LEFT_VX_VY
-};
+static chip mainChip = {0};
+static registerSet chipReg = {0};
+static byte *chipMem;
 
 #endif

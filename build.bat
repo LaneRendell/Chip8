@@ -6,5 +6,5 @@ set CommonLinkerFlags= -incremental:no -opt:ref /SUBSYSTEM:CONSOLE SDL2main.lib 
 IF NOT EXIST ..\..\build mkdir ..\..\build
 pushd ..\..\build
 
-cl %CommonCompilerFlags% ..\code\ch8.c -Fmch8.map /link %CommonLinkerFlags%
+cl %CommonCompilerFlags% ..\code\ch8.c ..\code\cpu.c -Fmch8.map /link %CommonLinkerFlags%
 popd

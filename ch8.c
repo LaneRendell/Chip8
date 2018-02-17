@@ -1,7 +1,5 @@
 #include <stdbool.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include <malloc.h>
 #include <windows.h>
 #include "globals.h"
 

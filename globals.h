@@ -9,7 +9,8 @@
 
 #define GLOBALS_H
 
-#include <SDL.h>
+#include "./dependencies/SDL.h"
+//#include <SDL.h> Uncomment if you've got it on your system and want your version I guess
 
 //*******************************************************Defines************/
 

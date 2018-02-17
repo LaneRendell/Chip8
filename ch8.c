@@ -3,10 +3,7 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <windows.h>
-#include "chip8.h"
 #include "globals.h"
-
-#define OPCODE_LENGTH 2
 
 bool loadRom(const char *filename)
 {

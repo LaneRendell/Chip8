@@ -17,6 +17,7 @@
 #define MEM_SIZE 0x1000
 #define SP_START 0x252   // Where does the Stack pointer start?
 #define ROM_LOAD 0x200
+#define FONTSET_LENGTH 80
 
 #define OPCODE_LENGTH 2
 

@@ -1,0 +1,5 @@
+# Python scripts I used to analyze stuffs.
+*.py
+
+# Any exe's I used in dev. Code counting stuff.
+*exe

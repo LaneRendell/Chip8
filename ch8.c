@@ -44,7 +44,7 @@ bool loadRom(const char *filename)
 
     // Make sure we have enough memory
     // first 512 vytes reserved
-    if(fileRead > (4096 - 512))
+    if(fileRead > (MEM_SIZE - ROM_LOAD))
     {
         printf("File too big. gah.\n");
         return false;
@@ -54,7 +54,7 @@ bool loadRom(const char *filename)
 
     while(i < fileRead)
     {
-        chipMem[i+0x200] = (byte)Buffer[i];
+        chipMem[i+ROM_LOAD] = (byte)Buffer[i];
         i++;
     }
     
@@ -63,10 +63,20 @@ bool loadRom(const char *filename)
     return Result;
 }
 
+/**
+ *
+ * Checks memory for the first half of the opcode increments the memory array
+ * and ORs on the second and saves it in the operand.
+ */
 void fetchInstr()
 {
     WORD opcode = chipMem[chipReg.pc.WORD] << 8 | chipMem[chipReg.pc.WORD + 1];
     chipReg.operand.WORD = (WORD)opcode;
+}
+
+void decodeInstr()
+{
+    
 }
 
 void execInstr()
@@ -84,10 +94,10 @@ void init()
     chipReg.sp.WORD = 0;
 
     int i = 0;
-    while (i < 79)
+    while (i < FONTSET_LENGTH)
     {
         chipMem[i] = fontset[i];
-        i++;
+        ++i;
     }
 }
 

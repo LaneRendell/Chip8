@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include <windows.h>
 #include "globals.h"
+#include "hash.h"
 
 bool loadRom(const char *filename)
 {
     bool Result = false;
+
     printf("Loading: %s\n", filename);
 
     FILE *file = fopen(filename, "rb");
@@ -103,6 +105,13 @@ void init()
 
 int main(int argc, char *argv[])
 {
+    HashEntry *blah = malloc(sizeof(HashEntry));
+    HashEntry HashTable[6];
+    HashTable[0] = *blah;
+    void *value = malloc(sizeof(int));
+    *((int *)value) = 5;
+    blah->key = value;
+    
     init();
 
     if(argc < 2)
@@ -113,13 +122,14 @@ int main(int argc, char *argv[])
 
     // LOAD ROM
 
+    printf("Test: %d\n", *(int *)blah->key);
     if(!loadRom(argv[1]))
     {
         printf("file cant be loaded\n");
         return 1;
     }
 
-    
+
     SDL_Window *window;
     //The surface contained by the window
     SDL_Surface* ScreenSurface = NULL;
@@ -178,6 +188,8 @@ int main(int argc, char *argv[])
 
 
         // Draw
+        
+
         
     }
 

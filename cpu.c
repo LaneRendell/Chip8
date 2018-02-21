@@ -1,19 +1,12 @@
 #include "globals.h"
 
-const enum f_Functions
-{
-    LD_DELAYTIMER_GET = 0x07, LD_KEYPAD_STORE = 0x0A, LD_DELAY_SET = 0x15,
-    LD_SOUND = 0x18, ADD_I = 0x1E, LD_FONT = 0x29,
-    LD_BCD = 0x33, LD_STORE_REGISTER_MEM = 0x55,
-    LD_READ_REGISTER_MEM = 0x65
-
-};
 
 typedef void(*FunctionPointer) (void);
 
 void (*ChipOpCodes[46]) ();
 void (*ChipArith[9]) ();
 void (*ChipKeypadFuncs[10]) ();
+void (*ChpLdAddKeypadMisc[1]) ();
 
 
 void cpu_MISC()

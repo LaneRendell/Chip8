@@ -1,12 +1,4 @@
 #if !defined(GLOBALS_H)
-/* ========================================================================
-   $File: $
-   $Date: $
-   $Revision: $
-   $Creator: Casey Muratori $
-   $Notice: (C) Copyright 2015 by Molly Rocket, Inc. All Rights Reserved. $
-   ======================================================================== */
-
 #define GLOBALS_H
 
 #include "./dependencies/SDL.h"
@@ -67,9 +59,14 @@ typedef struct
 
 
 // ********************************* Global declarations *************/
+// TODO
+// IMPORTANT: These threee variables can be pulled from globals and passed around
+// make sure you do this.
 static chip mainChip = {0};
 static registerSet chipReg = {0};
 static byte *chipMem;
+
+// End
 static byte fontset[80] =
 {
     0xF0, 0x90, 0x90, 0x90, 0xF0, // 0

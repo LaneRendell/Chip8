@@ -3,13 +3,10 @@
 
 typedef struct HashEntry_
 {
-    void *key;
-    void *data;
+    int key;
+    int data;
 } HashEntry;
 
-void *Hash(void *Data)
-{
-    void *HashVal = *(int *)Data % 9;
-}
+void HashValue(HashEntry *HashEntry);
 
 #endif

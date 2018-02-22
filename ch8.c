@@ -105,12 +105,10 @@ void init()
 
 int main(int argc, char *argv[])
 {
-    HashEntry *blah = malloc(sizeof(HashEntry));
-    HashEntry HashTable[6];
-    HashTable[0] = *blah;
+    HashEntry blah = { 0 };
     void *value = malloc(sizeof(int));
-    *((int *)value) = 5;
-    blah->key = value;
+    
+    HashValue(&blah);
     
     init();
 
@@ -122,7 +120,7 @@ int main(int argc, char *argv[])
 
     // LOAD ROM
 
-    printf("Test: %d\n", *(int *)blah->key);
+    printf("Test: %d\n", blah.key);
     if(!loadRom(argv[1]))
     {
         printf("file cant be loaded\n");

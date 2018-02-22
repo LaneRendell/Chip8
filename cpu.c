@@ -1,5 +1,9 @@
 #include "globals.h"
+#include "hash.h"
 
+#define DELAY_TIMER_VALUE 0xF07
+#define WAIT_KEY 0xF0A
+#define DELAY_TIMER_REG 0xF15
 
 typedef void(*FunctionPointer) (void);
 
@@ -7,6 +11,18 @@ void (*ChipOpCodes[46]) ();
 void (*ChipArith[9]) ();
 void (*ChipKeypadFuncs[10]) ();
 void (*ChpLdAddKeypadMisc[1]) ();
+
+typedef struct MiscOpCodes
+{
+    unsigned int OpCode;
+    FunctionPointer ptr;
+} MiscOpCodes;
+
+static const MiscOpCodes mapper[] =
+{
+    {0x29, NULL}
+};
+
 
 
 void cpu_MISC()
@@ -171,3 +187,5 @@ void (*ChipKeypadFuncs[10]) () =
     cpu_SKIP_NOT_KEY
     
 };
+
+

@@ -76,9 +76,19 @@ void fetchInstr()
     chipReg.operand.WORD = (WORD)opcode;
 }
 
-void decodeInstr()
+void decodeInstr(registerSet *ChipReg)
 {
-    
+    ChipReg->operand.WORD = 0xF029;
+    // Check to see if it won't be in main opcode table first
+    int MSB = ChipReg->operand.WORD &
+        ((1 << 15) | (1 << 14) | (1 << 13) | (1 << 12));
+
+    if (MSB != 0xF000)
+    {
+        // Query normal opcode table
+    } else {
+        // Pass to hash table for handling.
+    }
 }
 
 void execInstr()
@@ -88,7 +98,6 @@ void execInstr()
 
 void init()
 {
-    
     chipMem = mainChip.memory;
     chipReg = mainChip.regs;
     chipReg.pc.WORD = (unsigned int)0x200;  // PC always starts here
@@ -101,14 +110,14 @@ void init()
         chipMem[i] = fontset[i];
         ++i;
     }
+
+    // TODO: Setup hash table.
+    
 }
 
 int main(int argc, char *argv[])
 {
-    HashEntry blah = { 0 };
-    void *value = malloc(sizeof(int));
-    
-    HashValue(&blah);
+    HashTable *table = NewHashTable();
     
     init();
 
@@ -119,8 +128,6 @@ int main(int argc, char *argv[])
     }
 
     // LOAD ROM
-
-    printf("Test: %d\n", blah.key);
     if(!loadRom(argv[1]))
     {
         printf("file cant be loaded\n");
@@ -159,6 +166,8 @@ int main(int argc, char *argv[])
 
     while(!quit)
     {
+        SDL_WaitEvent(&e);
+
         //Handle events on queue
         while( SDL_PollEvent( &e ) != 0 )
         {
@@ -180,17 +189,17 @@ int main(int argc, char *argv[])
         // Cycle
 
         fetchInstr();
+
+        decodeInstr(&chipReg);
         
         // Call function to parse opcode
         execInstr();
 
 
-        // Draw
-        
-
-        
+        // Draw        
     }
 
+    DeleteHashTable(table);
     SDL_DestroyWindow(window);
     window = NULL;
     SDL_Quit();

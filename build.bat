@@ -10,5 +10,5 @@ xcopy /y .\dependencies\SDL2main.lib ..\..\build
 pushd ..\..\build
 
 
-cl %CommonCompilerFlags% ..\code\ch8.c ..\code\cpu.c  ..\code\hash.c -Fmch8.map /link %CommonLinkerFlags%
+cl %CommonCompilerFlags% ..\code\ch8.c ..\code\cpu.c  ..\code\hashing.c -Fmch8.map /link %CommonLinkerFlags%
 popd

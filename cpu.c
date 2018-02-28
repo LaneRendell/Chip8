@@ -1,5 +1,4 @@
 #include "globals.h"
-#include "hash.h"
 
 #define DELAY_TIMER_VALUE 0xF07
 #define WAIT_KEY 0xF0A

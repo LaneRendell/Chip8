@@ -2,4 +2,6 @@
 *.py
 
 # Any exe's I used in dev. Code counting stuff.
-*exe
+*.exe
+
+/hashing_test/

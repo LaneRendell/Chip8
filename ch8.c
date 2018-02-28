@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include "globals.h"
-#include "hash.h"
+#include "hashing.h"
 
 bool loadRom(const char *filename)
 {
@@ -117,7 +117,22 @@ void init()
 
 int main(int argc, char *argv[])
 {
-    HashTable *table = NewHashTable();
+    int c[9];
+    //HashTable *table = NewHashTable();
+    for (int i = 0; i < (sizeof(Keys) / sizeof(Keys[0]));
+             i++)
+    {
+        c[i] = (hash(&Keys[i],(sizeof(Keys) / sizeof(Keys[0])),
+                     3));
+    }
+
+    for (int i = 0; i < (sizeof(Keys) / sizeof(Keys[0]));
+             i++)
+    {
+        printf("Hash #%u: %u\n", i, c[i]);
+    }
+
+
     
     init();
 
@@ -199,10 +214,9 @@ int main(int argc, char *argv[])
         // Draw        
     }
 
-    DeleteHashTable(table);
+    //DeleteHashTable(table);
     SDL_DestroyWindow(window);
     window = NULL;
     SDL_Quit();
     return 0;
 }
-
